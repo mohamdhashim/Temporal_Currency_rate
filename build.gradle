@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    implementation group: 'io.temporal', name: 'temporal-sdk', version: '1.5.0'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.5'
+    implementation group: 'commons-configuration', name: 'commons-configuration', version: '1.10'
+    implementation 'org.json:json:20211205'
+
+    testImplementation group: 'io.temporal', name: 'temporal-testing', version: '1.5.0'
+    testImplementation group: 'io.temporal', name: 'temporal-testing-junit4', version: '1.5.0'
+    testImplementation group: 'io.temporal', name: 'temporal-testing-junit5', version: '1.5.0'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.11.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+task sayHello(type: JavaExec) {
+    main = 'InitiateCurrencyConverter'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task startWorker(type: JavaExec) {
+    main = 'CurrencyConverterWorker'
+    classpath = sourceSets.main.runtimeClasspath
+}
